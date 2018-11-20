@@ -16,9 +16,9 @@ class Book
 {
 
   /**
-   * @var \Doctrine\Common\Collections\Collection|BookAuthor[]
+   * @var \Doctrine\Common\Collections\Collection|Author[]
    *
-   * @ORM\ManyToMany(targetEntity="BookAuthor", inversedBy="books")
+   * @ORM\ManyToMany(targetEntity="Author", inversedBy="books")
    * @ORM\JoinTable(
    *  name="book_author",
    *  joinColumns={
@@ -30,24 +30,11 @@ class Book
    * )
    */
 
-   protected $bookAuthors;
+   protected $authors;
 
    public function __construct()
     {
-        $this->bookAuthors = new ArrayCollection();
-    }
-
-
-    /**
-     * @param Author $author
-     */
-    public function addAuthor(Author $author)
-    {
-        if ( $this->bookAuthors && $this->bookAuthors->contains($author) ) {
-            return;
-        }
-        $this->bookAuthors->add($author);
-        //$author->addBook($this);
+        $this->authors = new ArrayCollection();
     }
 
     /**
@@ -77,23 +64,18 @@ class Book
     /**
      * @var string
      *
+     * @ORM\Column(name="category", type="string", length=255)
+     */
+    private $category;
+
+
+    /**
+     * @var string
+     *
      * @ORM\Column(name="price", type="decimal", precision=2, scale=0)
      */
     private $price;
 
-    /**
-     * @var int
-     *
-     * @ORM\Column(name="category_id", type="integer")
-     */
-    private $categoryId;
-
-    /**
-     * @var int
-     *
-     * @ORM\Column(name="author_id", type="integer")
-     */
-    private $authorId;
 
 
     /**
@@ -179,110 +161,55 @@ class Book
     }
 
     /**
-     * Set categoryId.
+     * Add author.
      *
-     * @param int $categoryId
+     * @param \LibraryBundle\Entity\Author $author
      *
      * @return Book
      */
-    public function setCategoryId($categoryId)
+    public function addAuthor(Author $author)
     {
-        $this->categoryId = $categoryId;
+        $this->authors[] = $author;
 
         return $this;
     }
 
     /**
-     * Get categoryId.
+     * Remove author.
      *
-     * @return int
-     */
-    public function getCategoryId()
-    {
-        return $this->categoryId;
-    }
-
-    /**
-     * Set authorId.
-     *
-     * @param int $authorId
-     *
-     * @return Book
-     */
-    // public function setAuthorId($authorId)
-    // {
-    //     $this->authorId = $authorId;
-    //
-    //     return $this;
-    // }
-
-    /**
-     * Get authorId.
-     *
-     * @return int
-     */
-    // public function getAuthorId()
-    // {
-    //     return $this->authorId;
-    // }
-
-    /**
-     * Add bookAuthor.
-     *
-     * @param \LibraryBundle\Entity\BookAuthor $bookAuthor
-     *
-     * @return Book
-     */
-    public function addBookAuthor(\LibraryBundle\Entity\BookAuthor $bookAuthor)
-    {
-        $this->bookAuthors[] = $bookAuthor;
-
-        return $this;
-    }
-
-    /**
-     * Remove bookAuthor.
-     *
-     * @param \LibraryBundle\Entity\BookAuthor $bookAuthor
+     * @param \LibraryBundle\Entity\Author $author
      *
      * @return boolean TRUE if this collection contained the specified element, FALSE otherwise.
      */
-    public function removeBookAuthor(\LibraryBundle\Entity\BookAuthor $bookAuthor)
+    public function removeAuthor(\LibraryBundle\Entity\Author $author)
     {
-        return $this->bookAuthors->removeElement($bookAuthor);
+        return $this->authors->removeElement($author);
     }
 
     /**
-     * Get bookAuthors.
+     * Get authors.
      *
      * @return \Doctrine\Common\Collections\Collection
      */
-    public function getBookAuthors()
+    public function getAuthors()
     {
-        return $this->bookAuthors;
+        return $this->authors;
     }
 
     /**
-     * Set authorId.
-     *
-     * @param int $authorId
-     *
-     * @return Book
+     * @return string
      */
-    public function setAuthorId($authorId)
+    public function getCategory()
     {
-        $this->authorId = $authorId;
-
-        return $this;
+        return $this->category;
     }
 
     /**
-     * Get authorId.
-     *
-     * @return int
+     * @param string $category
      */
-    public function getAuthorId()
+    public function setCategory($category)
     {
-        return $this->authorId;
+        $this->category = $category;
     }
+
 }

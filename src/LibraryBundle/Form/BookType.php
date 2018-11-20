@@ -3,6 +3,7 @@
 namespace LibraryBundle\Form;
 
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
@@ -17,14 +18,24 @@ class BookType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('book_authors', EntityType::class, [
+        $builder->add('authors', EntityType::class, [
                         'class' => 'LibraryBundle\Entity\Author',
                         'choice_label' => 'fullName',
                         'label' => 'Author (s)',
                         'multiple' => true,
                         'expanded' => true
 
-                    ])->add('isbn13')->add('title')->add('categoryId')->add('price');
+                    ])
+            ->add('isbn13')
+            ->add('title')
+            ->add('category', ChoiceType::class, [
+                'choices' => [
+                    'Drama' => 'drama',
+                    'Fantasy' => 'fantasy',
+                    'Novel' => 'novel'
+                ]
+            ])
+            ->add('price');
     }/**
      * {@inheritdoc}
      */

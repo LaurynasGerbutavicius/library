@@ -6,8 +6,8 @@
     <table>
         <tbody>
             <tr>
-                <th>Authorid</th>
-                <td>{{ book.authorId }}</td>
+                <th>Authors</th>
+                <td>{{ book.authors|join(', ') }}</td>
             </tr>
             <tr>
                 <th>Isbn13</th>
@@ -18,8 +18,8 @@
                 <td>{{ book.title }}</td>
             </tr>
             <tr>
-                <th>Categoryid</th>
-                <td>{{ book.categoryId }}</td>
+                <th>Category</th>
+                <td>{{ book.category }}</td>
             </tr>
             <tr>
                 <th>Price</th>

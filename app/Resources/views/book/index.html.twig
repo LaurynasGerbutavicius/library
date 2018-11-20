@@ -6,7 +6,7 @@
     <table>
         <thead>
             <tr>
-                <th>Authorid</th>
+                <th>Authors</th>
                 <th>Isbn13</th>
                 <th>Title</th>
                 <th>Categoryid</th>
@@ -18,10 +18,14 @@
         <tbody>
         {% for book in books %}
             <tr>
-                <td><a href="{{ path('book_show', { 'id': book.id }) }}">{{ book.authorId }}</a></td>
+                <td>
+                    {% for author in book.authors %}
+                        <a href="{{ path('author_show', { 'id': author.id }) }}">{{ author }}</a>
+                    {% endfor %}
+                </td>
                 <td>{{ book.isbn13 }}</td>
                 <td>{{ book.title }}</td>
-                <td>{{ book.categoryId }}</td>
+                <td>{{ book.category }}</td>
                 <td>{{ book.price }}</td>
                 <td>{{ book.id }}</td>
                 <td>

@@ -11,14 +11,4 @@ namespace LibraryBundle\Repository;
 class AuthorRepository extends \Doctrine\ORM\EntityRepository
 {
 
-  public function findByIsDeleted() {
-      $qb = $this->createQueryBuilder('s');
-
-      echo( $qb->getQuery()->getSQL() );
-
-      //$qb->getQuery()->getResult();
-      
-      return $qb;
-  }
-
 }
