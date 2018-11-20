@@ -85,28 +85,6 @@ class BookController extends Controller
         $deleteForm = $this->createDeleteForm($book);
         $editForm = $this->createForm('LibraryBundle\Form\BookType', $book);
 
-//        $requestParams = $request->request->get('librarybundle_book');
-//        $bookAuthors = $requestParams['book_authors'];
-//
-//        if( $requestParams ){
-//              unset($requestParams['book_authors']);
-//              $request->request->replace($requestParams);
-//        }
-//
-//        $bookId = $book->getId();
-//
-//        $em = $this->getDoctrine()->getManager();
-//        $RAW_QUERY = "DELETE FROM `library`.`book_author` WHERE (`book_id` = $bookId);";
-//        $statement = $em->getConnection()->prepare($RAW_QUERY);
-//        $statement->execute();
-//
-//        foreach( $bookAuthors as $authorId ){
-//              $em = $this->getDoctrine()->getManager();
-//              $RAW_QUERY = "INSERT INTO `library`.`book_author` (`book_id`, `author_id`) VALUES ('$bookId', '$authorId');";
-//              $statement = $em->getConnection()->prepare($RAW_QUERY);
-//              $statement->execute();
-//        }
-
         $editForm->handleRequest($request);
 
         if ($editForm->isSubmitted() && $editForm->isValid()) {
