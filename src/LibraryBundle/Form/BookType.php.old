@@ -1,0 +1,59 @@
+<?php
+
+namespace LibraryBundle\Form;
+
+use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\OptionsResolver\OptionsResolver;
+//use LibraryBundle\Entity\Author;
+
+//use LibraryBundle\Repository\AuthorRepository;
+
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
+
+use LibraryBundle\Form\EntityRepository;
+
+class BookType extends AbstractType
+{
+    /**
+     * {@inheritdoc}
+     */
+    public function buildForm(FormBuilderInterface $builder, array $options)
+    {
+        $builder->add('isbn13')->add('title')->add('price')->add('categoryId')
+
+        ->add('book_authors', EntityType::class, [
+                'class' => 'LibraryBundle\Entity\Author',
+                'choice_label' => 'fullName',
+                'label' => 'Author (s)',
+                'multiple' => true,
+                'expanded' => false
+            ]);
+
+    }/**
+     * {@inheritdoc}
+     */
+    public function configureOptions(OptionsResolver $resolver)
+    {
+        $resolver->setDefaults(array(
+            'data_class' => 'LibraryBundle\Entity\Book'
+        ));
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getBlockPrefix()
+    {
+        return 'librarybundle_book';
+    }
+
+    // public getAuthor(){ return LibraryBundle\Entity\Author }
+    //
+    // public author(){ return ''; }
+    //
+    // public isAuthor(){ return ''; }
+    //
+    // public hasAuthor(){ return ''; }
+
+}
